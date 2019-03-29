@@ -5,6 +5,9 @@
     if($this->session->flashdata('user_registered')):
     echo $this->session->flashdata('user_registered');
     endif;
+    if($this->session->flashdata('register_error')):
+    echo $this->session->flashdata('register_error');
+    endif;
     
 ?>
 </p>

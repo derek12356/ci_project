@@ -21,6 +21,23 @@ class User_model extends CI_Model{
 //        $this->db->where(['id'=>$id]);
 //        $this->db->delete('users');
 //    }
+    public function getUserByName($name){
+        $this->db->like('username',$name);
+        $query = $this->db->get('users');
+        return $query->result();
+    }
+    
+    public function getUsers(){
+        $query = $this->db->get('users');
+        return $query->result();
+    }
+    
+    public function getUsersById($id){
+        $this->db->where('id',$id);
+        $query = $this->db->get('users');
+        return $query->result();
+    }
+        
     public function login_user($email, $password){
         $this->db->where('email', $email);
         $result = $this->db->get('users');
@@ -35,6 +52,7 @@ class User_model extends CI_Model{
     public function create_user(){
         $option = ['cost' => 12];
         $encrypted_pass = password_hash($this->input->post('password'),PASSWORD_DEFAULT,$option);
+//        if(!empty($this->check_user($this->input->post('email'))))
         $data = array(
                 'username'=>$this->input->post('username'),
                 'email'=>$this->input->post('email'),
@@ -43,6 +61,22 @@ class User_model extends CI_Model{
                 'password'=>$encrypted_pass
             );
         return $this->db->insert('users',$data);
+        
+    }
+    
+    public function update_user($user_id){
+        $option = ['cost' => 12];
+        $encrypted_pass = password_hash($this->input->post('password'),PASSWORD_DEFAULT,$option);
+        $data = array(
+                'username'=>$this->input->post('username'),
+                'email'=>$this->input->post('email'),
+                'first_name'=>$this->input->post('first_name'),
+                'last_name'=>$this->input->post('last_name'),
+                'password'=>$encrypted_pass,
+                'team_manager'=>$this->input->post('team_manager')
+            );
+        $this->db->where('id',$user_id);
+        return $this->db->update('users',$data);
         
     }
     
@@ -65,7 +99,25 @@ class User_model extends CI_Model{
         return $result->row(0)->username;
     }
     
+    public function getUserId($data){
+        $this->db->where('email',$data['email']);
+        $result = $this->db->get('users');
+
+        return $result->row(0)->id;
+    }
     
+    public function getTeamManager($email){
+        $this->db->where('email',$email);
+        $result = $this->db->get('users');
+
+        return $result->row(0)->team_manager;
+    }
+    
+    public function check_user($email){
+        $this->db->where('email',$email);
+        $query = $this->db->get('users');
+        return $query->result();
+    }
     
 }
 ?>

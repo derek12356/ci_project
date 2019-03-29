@@ -1,25 +1,25 @@
 
-<h1>Project</h1>
+<h1>Team</h1>
 
-<?php $attributes = array('id'=>'project_create_form', 'class'=>'form_horizontal');?>
+<?php $attributes = array('id'=>'team_create_form', 'class'=>'form_horizontal');?>
 <?php echo validation_errors("<p class='bg-danger'>");?>
 
-<?php echo form_open('projects/create', $attributes);?>
+<?php echo form_open('teams/create', $attributes);?>
 <div class='form-group'>
-    <?php echo form_label('Project Name');
+    <?php echo form_label('Team Name');
     $data = array(
         'class' => 'form-control',
-        'name' => 'project_name',
-        'placeholder' => 'Enter Project Name'
+        'name' => 'team_name',
+        'placeholder' => 'Enter Team Name'
     );
     echo form_input($data);
     ?> 
 </div>
 <div class='form-group'>
-    <?php echo form_label('Project Description');
+    <?php echo form_label('Team Description');
     $data = array(
         'class' => 'form-control',
-        'name' => 'project_body',
+        'name' => 'team_body',
 
     );
     echo form_textarea($data);

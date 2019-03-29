@@ -29,7 +29,8 @@
     $data = array(
         'class' => 'form-control',
         'name' => 'email',
-        'placeholder' => 'Enter Email'
+        'placeholder' => 'Enter Email',
+        'value' => set_value('email')
     );
     echo form_input($data);
     ?> 

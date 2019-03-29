@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Ci Project</title>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/styles.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="<?php echo base_url();?>assets/js/jquery.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery-ui.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-    
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/datetimepicker/moment.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>assets/js/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <link href="<?php echo base_url();?>assets/js/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="287308773092-al0dbi4h27mfo4gcfsenlpsecklu4qhj.apps.googleusercontent.com">
+    <script src="<?php echo base_url();?>assets/js/script.js"></script>
 </head>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -28,18 +37,32 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo base_url();?>">Home<span class="sr-only">(current)</span></a></li>
         <li ><a href="<?php echo base_url();?>users/register">Register<span class="sr-only">(current)</span></a></li>
+        <?php 
+        if($this->session->userdata('logged_in')){
+        ?>
+        <?php if($this->session->userdata('team_manager') == 1){ ?>
         <li ><a href="<?php echo base_url();?>projects/index">Projects<span class="sr-only">(current)</span></a></li>
+        <li ><a href="<?php echo base_url();?>teams/index">Teams<span class="sr-only">(current)</span></a></li>
+        <?php }else{ ?>
+        <li ><a href="<?php echo base_url();?>teams/join_team">Join Teams<span class="sr-only">(current)</span></a></li>
+        <?php }; ?>
+        <li ><a href="<?php echo base_url();?>tasks/my_tasks">My Tasks<span class="sr-only">(current)</span></a></li>
+        <?php };?>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <?php 
-        if($this->session->userdata('logged_in')){
-        ?>
+        if($this->session->userdata('logged_in')):?>
+       <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->userdata('username');?><span class="caret"></span></a>
+          <ul class="dropdown-menu">
         <li><a onclick='signOut' href="<?php echo base_url();?>users/logout">Logout</a></li>
-        
-        <?php } ;?>
-
+        <li><a href="<?php echo base_url();?>users/edit">Edit User</a></li>
+          </ul>
+        </li>
+        <?php endif;?>
       </ul>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
@@ -51,10 +74,7 @@
     </div>
     <div class="col-xs-9">
         <?php $this->load->view($main_view); ?>
-        <?php echo phpversion();?>
     </div>
 </div>
-    
 </body>
-<script src="<?php echo base_url();?>assets/js/script.js"></script>
 </html>

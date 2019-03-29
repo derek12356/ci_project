@@ -1,9 +1,9 @@
 
-<h1>Register</h1>
+<h1>Edit User</h1>
 
-<?php $attributes = array('id'=>'register_form', 'class'=>'form_horizontal');?>
+<?php $attributes = array('id'=>'edit_user_form', 'class'=>'form_horizontal');?>
 
-<?php echo form_open('users/register', $attributes);?>
+<?php echo form_open('users/edit', $attributes);?>
 <div class='form-group'>
     <?php echo form_label('Username');
     echo form_error('username');
@@ -11,7 +11,7 @@
         'class' => 'form-control',
         'name' => 'username',
         'placeholder' => 'Enter UserName',
-        'value' => set_value('username')
+        'value' =>$user->username
     );
     echo form_input($data);
     ?> 
@@ -24,7 +24,7 @@
         'class' => 'form-control',
         'name' => 'email',
         'placeholder' => 'Enter Email',
-        'value' => set_value('email')
+        'value' => $user->email
     );
     echo form_input($data);
     ?> 
@@ -35,8 +35,7 @@
     $data = array(
         'class' => 'form-control',
         'name' => 'password',
-        'placeholder' => 'Enter Password',
-        'value' => set_value('password')
+        'placeholder' => 'Enter Password'
     );
     echo form_password($data);
     ?> 
@@ -47,8 +46,7 @@
     $data = array(
         'class' => 'form-control',
         'name' => 'confirm_password',
-        'placeholder' => 'Comfirm Password',
-        'value' => set_value('confirm_password')
+        'placeholder' => 'Comfirm Password'
     );
     echo form_password($data);
     ?> 
@@ -60,7 +58,7 @@
         'class' => 'form-control',
         'name' => 'first_name',
         'placeholder' => 'Enter FirstName',
-        'value' => set_value('first_name')
+        'value'       => $user->first_name
     );
     echo form_input($data);
     ?> 
@@ -72,10 +70,19 @@
         'class' => 'form-control',
         'name' => 'last_name',
         'placeholder' => 'Enter LastName',
-        'value' => set_value('last_name')
+        'value'       => $user->last_name
     );
     echo form_input($data);
     ?> 
+</div>
+<div class="form-group">
+    <?php echo form_label('Team Manager');
+    $options = array(
+        '1' => 'yes',
+        '0' => 'no'
+    );
+    echo form_dropdown('team_manager',$options,$user->team_manager);
+    ?>
 </div>
 <div class='form-group'>
     <?php 
